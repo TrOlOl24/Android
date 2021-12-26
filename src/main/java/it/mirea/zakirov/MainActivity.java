@@ -34,28 +34,6 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel();
-        }
-        Button buttonNotify = findViewById(R.id.notificationButton);
-         buttonNotify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, NOTIFICATION_CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_launcher_background)
-                        .setContentTitle("Практическая работа 4")
-                        .setContentText("Закиров Илья Русланович ИКБО-06-20")
-                        .setStyle(new NotificationCompat.BigTextStyle())
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(MainActivity.this);
-                Random random = new Random();
-                notificationManagerCompat.notify(random.nextInt(), builder.build());
-            }
-        });
-
-
         Button buttonCamera = findViewById(R.id.startCameraButton);
         buttonCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,16 +64,6 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                     camera.startPreview();
                 }
         }
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void createNotificationChannel() {
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "NOTIFICATION_CHANNEL", importance);
-        channel.setDescription("Description");
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        notificationManager.createNotificationChannel(channel);
     }
 
     @Override
